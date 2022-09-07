@@ -1,0 +1,298 @@
+import PersonajesFrutasJuegos.*
+
+describe"Tests frutas" {
+	
+	test "las frutas son del tamaño correcto" {
+	assert.notThat(banana.esGrande())
+	assert.that(manzana.esGrande())
+	assert.notThat(mandarina.esGrande())
+}
+test "las frutas dan la energia correcta" {
+	assert.equals(manzana.energiaQueProvee,5)
+	assert.equals(banana.energiaQueProvee,5)
+	assert.equals(mandarina.energiaQueProvee,3)
+}
+	
+	test "La manzana madura y cambia de color" {
+		manzana.madurar()
+		assert.equals(manzana.color(), rojo)
+	}
+	
+
+	test "La mandarina madura y es grande" {
+		mandarina.madurar()
+		assert.that(mandarina.esGrande())
+	}
+
+	test "La mandarina madura y pesa 40% más" {
+		mandarina.madurar()
+		assert.equals(mandarina.peso(), 84)
+	}
+
+}
+
+describe "Tests deportes" {
+
+	test "El voley es jugado por Martin con una mandarina y le resta energia" {
+		martin.comprar(mandarina)
+		voley.esJugadoPor(martin)
+		assert.equals(martin.energia(), 7)
+	}
+
+	test "El futbol es jugado por Juana y le resta energia" {
+		futbol.esJugadoPor(juana)
+		assert.equals(juana.energia(), 35)
+	}
+
+	test "El básquet es jugado por Juana y le resta energia" {
+		basquet.esJugadoPor(juana)
+		assert.equals(juana.energia(), 42)
+	}
+
+}
+
+describe "Tests personas" {
+
+	test "Martin cumple años y se vuelve adulto" {
+		martin.cumplirAnios()
+		martin.cumplirAnios()
+		martin.cumplirAnios()
+		martin.cumplirAnios()
+		assert.that(martin.esAdulto())
+	}
+
+	test "Martin hace deporte y pierde energía" {
+		martin.hacerDeporte(voley)
+		martin.hacerDeporte(basquet)
+		martin.hacerDeporte(futbol)
+		assert.equals(martin.energia(), 0)
+	}
+
+	test "Martin cumple años y hace deporte, terminando con energía baja" {
+		martin.cumplirAnios()
+		martin.cumplirAnios()
+		martin.cumplirAnios()
+		martin.cumplirAnios()
+		martin.hacerDeporte(futbol)
+		martin.hacerDeporte(basquet)
+		assert.that(martin.tieneBajaEnergia())
+	}
+
+	test "Martin cumple años y hace deporte, terminando con energía baja siendo adulto" {
+		martin.cumplirAnios()
+		martin.cumplirAnios()
+		martin.cumplirAnios()
+		martin.cumplirAnios()
+		martin.hacerDeporte(futbol)
+		martin.hacerDeporte(basquet)
+		assert.that(martin.tieneBajaEnergiaYEsAdulto())
+	}
+
+	test "Martin hace deporte, terminando con energía baja no siendo adulto" {
+		martin.hacerDeporte(futbol)
+		assert.that(martin.tieneBajaEnergiaYNoEsAdulto())
+	}
+
+	test "Martin hace deporte y está feliz" {
+		martin.hacerDeporte(basquet)
+		martin.hacerDeporte(basquet)
+		assert.that(martin.estaFeliz())
+	}
+
+	test "Martin cumple años" {
+		martin.cumplirAnios()
+		assert.equals(martin.edad(), 15)
+	}
+
+	test "Martin compra fruta" {
+		martin.comprar(banana)
+		assert.equals(martin.frutaComprada(), banana)
+	}
+
+	test "Martin compra y hace madurar una manzana" {
+		martin.comprar(manzana)
+		martin.hacerMadurarALaFruta()
+		assert.equals(martin.frutaComprada().color(), rojo)
+	}
+
+	test "Martin compra, hace madurar y se come una manzana, ganando energía" {
+		martin.comprar(manzana)
+		martin.hacerMadurarALaFruta()
+		martin.comer()
+		assert.equals(martin.energia(), 29)
+	}
+
+	test "Martin compra, hace madurar y se come una mandarina, ganando energía" {
+		martin.comprar(mandarina)
+		martin.hacerMadurarALaFruta()
+		martin.comer()
+		assert.equals(martin.energia(), 25)
+	}
+
+	test "Martin se compra y come una banana, ganando energía" {
+		martin.comprar(banana)
+		martin.comer()
+		assert.equals(martin.energia(), 20)
+	}
+
+	test "Martin hace deporte y es deportista" {
+		martin.hacerDeporte(basquet)
+		martin.hacerDeporte(basquet)
+		assert.that(martin.esDeportista())
+	}
+
+	test "Juana compra una mandarina y hace voley, ganando energía" {
+		juana.comprar(mandarina)
+		juana.hacerDeporte(voley)
+		assert.equals(juana.energia(), 37)
+	}
+	
+	test "Juana compra una mandarina y hace voley, ganando endorfinas" {
+		juana.comprar(mandarina)
+		juana.hacerDeporte(voley)
+		assert.equals(juana.endorfinas(), 5)
+	}
+
+	test "Juana hace deporte y termina con baja energía" {
+		juana.hacerDeporte(futbol)
+		juana.hacerDeporte(futbol)
+		juana.hacerDeporte(futbol)
+		assert.that(juana.tieneBajaEnergia())
+	}
+
+	test "Juana hace deporte y está feliz" {
+		juana.hacerDeporte(futbol)
+		juana.hacerDeporte(futbol)
+		juana.hacerDeporte(futbol)
+		assert.that(juana.estaFeliz())
+	}
+
+	test "Juana hace deporte y es deportista" {
+		juana.hacerDeporte(basquet)
+		juana.hacerDeporte(basquet)
+		juana.hacerDeporte(basquet)
+		juana.hacerDeporte(basquet)
+		assert.that(juana.esDeportista())
+	}
+
+	test "Juana compra fruta" {
+		juana.comprar(manzana)
+		assert.equals(juana.frutaComprada(), manzana)
+	}
+
+	test "Pepe hace basquet y gana fuerza" {
+		pepe.hacerDeporte(basquet)
+		assert.equals(pepe.fuerza(), 3)
+	}
+	
+	test "Pepe hace basquet y pierde energía" {
+		pepe.hacerDeporte(basquet)
+		assert.equals(pepe.energia(), 24)
+	}
+	
+	test "Pepe hace basquet y pierde peso" {
+		pepe.hacerDeporte(basquet)
+		assert.equals(pepe.peso(), 79)
+	}
+
+	test "Pepe hace deporte y está feliz" {
+		pepe.hacerDeporte(voley)
+		pepe.hacerDeporte(voley)
+		pepe.hacerDeporte(voley)
+		pepe.hacerDeporte(voley)
+		pepe.hacerDeporte(voley)
+		pepe.hacerDeporte(voley)
+		assert.that(pepe.estaFeliz())
+	}
+
+	test "Pepe compra fruta" {
+		pepe.comprar(mandarina)
+		assert.equals(pepe.frutaComprada(), mandarina)
+	}
+
+}
+
+describe "Tests equipo" {
+
+	test "Se asignan jugadores al equipo y Martin es delantero izquierdo" {
+		equipo.asignarJugadores(martin, juana, pepe)
+		assert.equals(equipo.jugadorDelanteroIzquierdo(), martin)
+	}
+	
+	test "El equipo no es deportista" {
+		equipo.asignarJugadores(martin, juana, pepe)
+		assert.notThat(equipo.esEquipoDeportista())
+	}
+	
+	test "El equipo hace deporte y se vuelve deportista" {
+		equipo.asignarJugadores(martin, juana, pepe)
+		juana.hacerDeporte(basquet)
+		juana.hacerDeporte(basquet)
+		juana.hacerDeporte(basquet)
+		juana.hacerDeporte(basquet)
+		martin.hacerDeporte(basquet)
+		martin.hacerDeporte(basquet)
+		assert.that(equipo.esEquipoDeportista())
+	}
+
+	test "rotar posiciones" {
+		equipo.asignarJugadores(martin, juana, pepe)
+		equipo.rotarPosiciones()
+		assert.equals(equipo.jugadorDelanteroIzquierdo(), pepe)
+		assert.equals(equipo.jugadorDelanteroDerecho(), martin)
+		assert.equals(equipo.jugadorDefensor(), juana)
+	}
+	
+	test "Se asignan jugadores, se rotan las posiciones y pepe queda como delantero izquierdo" {
+		equipo.asignarJugadores(martin, juana, pepe)
+		equipo.rotarPosiciones()
+		assert.equals(equipo.jugadorDelanteroIzquierdo(), pepe)
+	}
+	
+	test "Se asignan jugadores, se rotan las posiciones y martin queda como delantero derecho" {
+		equipo.asignarJugadores(martin, juana, pepe)
+		equipo.rotarPosiciones()
+		assert.equals(equipo.jugadorDelanteroDerecho(), martin)
+	}
+	
+	test "Se asignan jugadores, se rotan las posiciones y juana queda como defensora" {
+		equipo.asignarJugadores(martin, juana, pepe)
+		equipo.rotarPosiciones()
+		assert.equals(equipo.jugadorDefensor(), juana)
+	}
+	
+	test "Se asignan las posiciones y la jugadora con más energía es Juana" {
+		equipo.asignarJugadores(martin, juana, pepe)
+		assert.equals(equipo.jugadorConMasEnergia(), juana)
+	}
+	
+	test "Se asignan las posiciones y Juana hace deporte, haciendo que entre el delantero izquierdo y derecho sea Martin quien tenga más energía" {
+		equipo.asignarJugadores(martin, juana, pepe)
+		juana.hacerDeporte(futbol)
+		juana.hacerDeporte(futbol)
+		juana.hacerDeporte(futbol)
+		juana.hacerDeporte(futbol)
+		assert.equals(equipo.jugadorConMasEnergiaEntreIzqYDer(), martin)
+	}
+	
+	test "Se asignan las posiciones y Juana hace deporte, haciendo que entre el delantero derecho y defensor sea Pepe quien tenga más energía" {
+		equipo.asignarJugadores(martin, juana, pepe)
+		juana.hacerDeporte(futbol)
+		juana.hacerDeporte(futbol)
+		juana.hacerDeporte(futbol)
+		juana.hacerDeporte(futbol)
+		assert.equals(equipo.jugadorConMasEnergiaEntreDerYDefensor(), pepe)
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
