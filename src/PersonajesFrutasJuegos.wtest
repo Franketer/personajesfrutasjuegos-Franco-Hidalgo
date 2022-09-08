@@ -62,6 +62,7 @@ describe "Tests personas" {
 	}
 
 	test "Martin hace deporte y pierde energía" {
+		martin.comprar(banana)
 		martin.hacerDeporte(voley)
 		martin.hacerDeporte(basquet)
 		martin.hacerDeporte(futbol)
